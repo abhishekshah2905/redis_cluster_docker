@@ -1,0 +1,46 @@
+version: '2'
+
+services:
+  r7000:
+    image: 'custom_redis:6.2'
+    container_name: redis-cluster-entry
+    ports:
+      - '7000:7000'
+      - '7001:7001'
+      - '7002:7002'
+      - '7003:7003'
+      - '7004:7004'
+      - '7005:7005'
+    volumes:
+      - ./configure/7000/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+  r7001:
+    image: 'custom_redis:6.2'
+    volumes:
+      - ./configure/7001/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    network_mode: "service:r7000"
+  r7002:
+    image: 'custom_redis:6.2'
+    volumes:
+      - ./configure/7002/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    network_mode: "service:r7000"
+  r7003:
+    image: 'custom_redis:6.2'
+    volumes:
+      - ./configure/7003/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    network_mode: "service:r7000"
+  r7004:
+    image: 'custom_redis:6.2'
+    volumes:
+      - ./configure/7004/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    network_mode: "service:r7000"
+  r7005:
+    image: 'custom_redis:6.2'
+    volumes:
+      - ./configure/7005/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    network_mode: "service:r7000"
